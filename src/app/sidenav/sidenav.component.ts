@@ -12,6 +12,8 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { Router } from '@angular/router';
+import { INavbarData } from './helper';
 import { navbarData } from './nav-data';
 
 interface SideNavToggle {
@@ -49,16 +51,16 @@ interface SideNavToggle {
 })
 export class SidenavComponent implements OnInit {
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
-
+  navData = navbarData;
   collapsed = false;
   screenWidth = 0;
-  navData = navbarData;
+  multiple: boolean = false;
 
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
   }
 
-  constructor() {}
+  constructor(public router: Router) {}
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -74,7 +76,6 @@ export class SidenavComponent implements OnInit {
 
   toggleCollapse(): void {
     this.collapsed = !this.collapsed;
-
     this.onToggleSideNav.emit({
       collapsed: this.collapsed,
       screenWidth: this.screenWidth,
@@ -88,5 +89,24 @@ export class SidenavComponent implements OnInit {
       collapsed: this.collapsed,
       screenWidth: this.screenWidth,
     });
+  }
+
+  handleClick(item: INavbarData): void {
+    this.shrinkItems(item);
+    item.expanded = !item.expanded;
+  }
+
+  getActiveClass(data: INavbarData): string {
+    return this.router.url.includes(data.routeLink) ? 'active' : '';
+  }
+
+  shrinkItems(item: INavbarData): void {
+    if (!this.multiple) {
+      for (let modelItem of this.navData) {
+        if (item !== modelItem && modelItem.expanded) {
+          modelItem.expanded = false;
+        }
+      }
+    }
   }
 }

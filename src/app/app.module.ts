@@ -14,6 +14,7 @@ import { PagesComponent } from './pages/pages.component';
 import { MediaComponent } from './media/media.component';
 import { SettingsComponent } from './settings/settings.component';
 import { SublevelMenuComponent } from './sidenav/sublevel-menu.component';
+import { CoupenListComponent } from './coupens/coupen-list/coupen-list.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { SublevelMenuComponent } from './sidenav/sublevel-menu.component';
     PagesComponent,
     MediaComponent,
     SettingsComponent,
-    SublevelMenuComponent
+    SublevelMenuComponent,
+    CoupenListComponent
   ],
   imports: [
     BrowserModule,

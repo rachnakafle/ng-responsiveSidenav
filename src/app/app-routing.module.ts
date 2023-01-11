@@ -16,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: 'products',
-    component: ProductsComponent,
+    loadChildren: () =>
+      import('./products/products.module').then((m) => m.ProductsModule),
   },
   {
     path: 'statistics',
@@ -24,7 +25,8 @@ const routes: Routes = [
   },
   {
     path: 'coupens',
-    component: CoupensComponent,
+    loadChildren: () =>
+      import('./coupens/coupens.module').then((m) => m.CoupensModule),
   },
   {
     path: 'pages',
